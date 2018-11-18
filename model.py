@@ -5,6 +5,8 @@ import numpy as np
 import time
 import os
 
+output = 'output'
+
 def pick_top_n(preds, vocab_size, top_n=5):
     p = np.squeeze(preds)
     # 将除了top_n个预测值的位置都置为0
@@ -126,10 +128,10 @@ class CharRNN:
                           'loss: {:.4f}... '.format(batch_loss),
                           '{:.4f} sec/batch'.format((end - start)))
                 if (step % save_every_n == 0):
-                    self.saver.save(sess, os.path.join(save_path, 'model'), global_step=step)
+                    self.saver.save(sess, os.path.join(save_path, output), global_step=step)
                 if step >= max_steps:
                     break
-            self.saver.save(sess, os.path.join(save_path, 'model'), global_step=step)
+            self.saver.save(sess, os.path.join(save_path, output), global_step=step)
 
     def sample(self, n_samples, prime, vocab_size):
         samples = [c for c in prime]
